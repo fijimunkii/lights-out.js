@@ -1,4 +1,4 @@
 lights-out
 ==========
 
-A tribute to Tiger Toys handheld game
+A tribute to the Tiger Toys handheld game
