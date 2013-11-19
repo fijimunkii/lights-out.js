@@ -1,0 +1,16 @@
+#game-container {
+  width: 510px;
+  height: 510px;
+}
+
+.light {
+  width: 100px;
+  height: 100px;
+  float: left;
+  border: 1px solid #000;
+  background: #000;
+}
+
+.on {
+  background: #fff;
+}
