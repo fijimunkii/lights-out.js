@@ -1,3 +1,7 @@
+body {
+  background: #000;
+}
+
 #game-container {
   width: 510px;
   height: 510px;

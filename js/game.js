@@ -201,4 +201,6 @@ $(function() {
 
   loopLights();
 
+  FastClick.attach(document.body);
+
 });
