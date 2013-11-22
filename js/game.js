@@ -9,6 +9,10 @@ $(function() {
     }
   }
 
+  $('#new-game').on('click', function() {
+    loopLights();
+  });
+
   $('body').on('click', '.light', function() {
 
     var id = $(this).attr('id'),
@@ -25,6 +29,9 @@ $(function() {
     $('#'+right).toggleClass('on');
     $(this).toggleClass('on');
 
+    var numMoves = $('#num-moves');
+    numMoves.text(parseInt(numMoves.text())+1);
+
     var numLeft = $('.on');
     if (numLeft.length === 0) {
       loopLights();
@@ -35,6 +42,8 @@ $(function() {
   function loopLights() {
 
     $('.light').removeClass('on');
+    var numMoves = $('#num-moves');
+    numMoves.text('');
 
     function loopTimeout(divId,time) {
       setTimeout(function() {
@@ -70,133 +79,57 @@ $(function() {
 
     setTimeout(function() {
       newGame();
+      numMoves.text('0');
     }, 2200);
   }
 
 
   function newGame() {
 
-    var randomNumber=Math.floor(Math.random()*10);
-
-    if (randomNumber === 0) {
-      $('#1-5').addClass('on');
-      $('#2-4').addClass('on');
-      $('#3-3').addClass('on');
-      $('#4-2').addClass('on');
-      $('#5-1').addClass('on');
-    } else if (randomNumber === 1) {
-      $('#1-1').addClass('on');
-      $('#1-2').addClass('on');
-      $('#1-3').addClass('on');
-      $('#1-5').addClass('on');
-      $('#2-1').addClass('on');
-      $('#2-2').addClass('on');
-      $('#3-2').addClass('on');
-      $('#3-4').addClass('on');
-      $('#4-4').addClass('on');
-      $('#4-5').addClass('on');
-      $('#5-1').addClass('on');
-      $('#5-3').addClass('on');
-      $('#5-4').addClass('on');
-      $('#5-5').addClass('on');
-    } else if (randomNumber === 2) {
-      $('#1-1').addClass('on');
-      $('#1-5').addClass('on');
-      $('#2-2').addClass('on');
-      $('#2-4').addClass('on');
-      $('#3-3').addClass('on');
-      $('#4-2').addClass('on');
-      $('#4-4').addClass('on');
-      $('#5-1').addClass('on');
-      $('#5-5').addClass('on');
-    } else if (randomNumber === 3) {
-      $('#1-2').addClass('on');
-      $('#1-4').addClass('on');
-      $('#2-2').addClass('on');
-      $('#2-4').addClass('on');
-      $('#3-1').addClass('on');
-      $('#3-2').addClass('on');
-      $('#3-3').addClass('on');
-      $('#3-4').addClass('on');
-      $('#3-5').addClass('on');
-      $('#4-2').addClass('on');
-      $('#4-4').addClass('on');
-      $('#5-2').addClass('on');
-      $('#5-4').addClass('on');
-    } else if (randomNumber === 4) {
-      $('#1-3').addClass('on');
-      $('#2-1').addClass('on');
-      $('#2-2').addClass('on');
-      $('#2-3').addClass('on');
-      $('#2-4').addClass('on');
-      $('#2-5').addClass('on');
-      $('#3-3').addClass('on');
-      $('#4-1').addClass('on');
-      $('#4-2').addClass('on');
-      $('#4-3').addClass('on');
-      $('#4-4').addClass('on');
-      $('#4-5').addClass('on');
-      $('#5-3').addClass('on');
-    } else if (randomNumber === 5) {
-      $('#1-1').addClass('on');
-      $('#2-2').addClass('on');
-      $('#2-3').addClass('on');
-      $('#2-4').addClass('on');
-      $('#3-2').addClass('on');
-      $('#3-4').addClass('on');
-      $('#4-2').addClass('on');
-      $('#4-3').addClass('on');
-      $('#4-4').addClass('on');
-      $('#5-5').addClass('on');
-    } else if (randomNumber === 6) {
-      $('#1-1').addClass('on');
-      $('#1-3').addClass('on');
-      $('#1-5').addClass('on');
-      $('#2-3').addClass('on');
-      $('#2-4').addClass('on');
-      $('#3-1').addClass('on');
-      $('#3-2').addClass('on');
-      $('#3-4').addClass('on');
-      $('#3-5').addClass('on');
-      $('#4-2').addClass('on');
-      $('#4-3').addClass('on');
-      $('#5-1').addClass('on');
-      $('#5-3').addClass('on');
-      $('#5-5').addClass('on');
-    } else if (randomNumber === 7) {
-      $('#1-1').addClass('on');
-      $('#1-3').addClass('on');
-      $('#2-1').addClass('on');
-      $('#2-2').addClass('on');
-      $('#2-5').addClass('on');
-      $('#3-1').addClass('on');
-      $('#3-5').addClass('on');
-      $('#4-1').addClass('on');
-      $('#4-4').addClass('on');
-      $('#4-5').addClass('on');
-      $('#5-3').addClass('on');
-      $('#5-5').addClass('on');
-    } else if (randomNumber === 8) {
-      $('#1-1').addClass('on');
-      $('#2-1').addClass('on');
-      $('#2-4').addClass('on');
-      $('#3-1').addClass('on');
-      $('#3-5').addClass('on');
-      $('#4-2').addClass('on');
-      $('#4-5').addClass('on');
-      $('#5-5').addClass('on');
-    } else if (randomNumber === 9) {
-      $('#1-4').addClass('on');
-      $('#1-5').addClass('on');
-      $('#2-2').addClass('on');
-      $('#2-4').addClass('on');
-      $('#2-5').addClass('on');
-      $('#4-1').addClass('on');
-      $('#4-2').addClass('on');
-      $('#4-4').addClass('on');
-      $('#5-1').addClass('on');
-      $('#5-2').addClass('on');
+    function setUpGame(coordArray) {
+      for (var i=0, numCoords = coordArray.length; i<numCoords; i++) {
+        $('#' + coordArray[i]).addClass('on');
+      }
     }
+
+    var randomCoords = randGame();
+    setUpGame(randomCoords);
+  }
+
+
+  function randGame() {
+    var numbers = [1,2,3,4,5],
+        firstNum = [],
+        secondNum = [],
+        newGame = [],
+        numLights = 0;
+
+    while (numLights < 1) {
+      numLights = Math.floor(Math.random()*12);
+    }
+
+    for (var i=0; i<numLights; i++) {
+      var firstIndex = Math.floor(Math.random()*5),
+          secondIndex = Math.floor(Math.random()*5);
+
+      firstNum.push(numbers[firstIndex]);
+      secondNum.push(numbers[secondIndex]);
+    }
+
+    for (var i=0; i<numLights; i++) {
+      var newLight = firstNum[i] + '-' + secondNum[i];
+      newGame.push(newLight);
+    }
+
+    for (var i=0; i<numLights; i++) {
+      var oppFirst = Math.abs(firstNum[i]-6),
+          oppSecond = Math.abs(secondNum[i]-6);
+
+      var newLight = (oppFirst + '-' + oppSecond);
+      newGame.push(newLight);
+    }
+
+    return newGame;
   }
 
   loopLights();
@@ -204,3 +137,9 @@ $(function() {
   FastClick.attach(document.body);
 
 });
+
+
+
+
+
+
