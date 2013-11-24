@@ -45,6 +45,8 @@ Game.calculateMoves = function() {
 Game.loopLights = function() {
   // turn off all lights before the loop sequence
   $('.light').removeClass('on');
+
+  // clear the number of moves
   var numMoves = $('#num-moves');
   numMoves.text('');
 
@@ -98,24 +100,23 @@ Game.randGame = function() {
     secondNum.push(numbers[secondIndex]);
   }
 
-  // joins the x and y coords to create
+  // joins x and y coords to create
   // the first half of the board
   for (var i=0; i<numLights; i++) {
     var newLight = firstNum[i] + '-' + secondNum[i];
     newGame.push(newLight);
   }
 
-  // stores the mirrored and inverted coords
-  // to create the second half of the board
+  // mirrors and inverts coords to
+  // create second half of the board
   for (var i=0; i<numLights; i++) {
     var oppFirst = Math.abs(firstNum[i]-6),
-        oppSecond = Math.abs(secondNum[i]-6);
-
-    var newLight = (oppFirst + '-' + oppSecond);
+        oppSecond = Math.abs(secondNum[i]-6),
+        newLight = (oppFirst + '-' + oppSecond);
     newGame.push(newLight);
   }
 
-  // returns the array of coords
+  // returns the final array of coords
   return newGame;
 }
 
