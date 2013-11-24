@@ -25,7 +25,7 @@ Game.toggle = function(light) {
   $('#'+bottom).toggleClass('on');
   $('#'+left).toggleClass('on');
   $('#'+right).toggleClass('on');
-  $(this).toggleClass('on');
+  $(light).toggleClass('on');
 
   Game.calculateMoves();
 }
@@ -60,27 +60,11 @@ Game.loopLights = function() {
   }
 
   // queue the timeouts
-  loopTimeout('1-1', 0);
-  loopTimeout('1-2', 100);
-  loopTimeout('1-3', 200);
-  loopTimeout('1-4', 300);
-  loopTimeout('1-5', 400);
-  loopTimeout('2-5', 500);
-  loopTimeout('3-5', 600);
-  loopTimeout('4-5', 700);
-  loopTimeout('5-5', 800);
-  loopTimeout('5-4', 900);
-  loopTimeout('5-3', 1000);
-  loopTimeout('5-2', 1100);
-  loopTimeout('4-2', 1200);
-  loopTimeout('3-2', 1300);
-  loopTimeout('2-2', 1400);
-  loopTimeout('2-3', 1500);
-  loopTimeout('2-4', 1600);
-  loopTimeout('3-4', 1700);
-  loopTimeout('4-4', 1800);
-  loopTimeout('4-3', 1900);
-  loopTimeout('3-3', 2000);
+  var loop = ['1-1','1-2','1-3','1-4','1-5','2-5','3-5','4-5','5-5','5-4','5-3','5-2','4-2','3-2','2-2','2-3','2-4','3-4','4-4','4-3','3-3'];
+
+  for (var i=0; i<21; i++) {
+    loopTimeout(loop[i],i*100);
+  }
 
   // final timeout for the new-game
   setTimeout(function() {
