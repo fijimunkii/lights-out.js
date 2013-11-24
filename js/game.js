@@ -35,7 +35,7 @@ Game.calculateMoves = function() {
   var numMoves = $('#num-moves');
   numMoves.text(parseInt(numMoves.text())+1);
 
-  // if no lights are left on, game is won
+  // if no lights are on, game is won
   var numLeft = $('.on');
   if (numLeft.length === 0) {
     Game.loopLights();
@@ -135,11 +135,12 @@ Game.newGame = function() {
 }
 
 Game.listeners = function() {
-  // event listener for new-game button
+  // event listener on new-game button
   $('#new-game').on('click', function() {
     Game.loopLights();
   });
 
+  // event listener on game interaction
   $('body').on('click', '.light', function() {
     Game.toggle(this);
   });
@@ -148,10 +149,9 @@ Game.listeners = function() {
 
 $(function() {
 
+  // initialize game
   Game.createBoard();
-
   Game.loopLights();
-
   Game.listeners();
 
   // mobile fix for touch events
