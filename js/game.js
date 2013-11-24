@@ -66,13 +66,13 @@ Game.loopLights = function() {
     loopTimeout(loop[i],i*100);
   }
 
-  // final timeout for the new-game
+  // queue the new-game
   setTimeout(function() {
     Game.newGame();
 
     // reset number of moves
     numMoves.text('0');
-  }, 2200);
+  }, 2100);
 }
 
 Game.randGame = function() {
