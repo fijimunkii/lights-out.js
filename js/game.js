@@ -3,6 +3,8 @@
   var Game = Game || {};
 
   Game.createBoard = function() {
+    $('#game-container').html('');
+
     for (var y=1; y<6; y++) {
       for (var x=1; x<6; x++) {
         $light = $('<div>');
