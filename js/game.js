@@ -53,30 +53,58 @@
     numMoves.text('');
 
     // on-off timeout
-    function loopTimeout(divId,time) {
+    function loopTimeout(divId,time,timeOut) {
       setTimeout(function() {
         $('#' + divId).addClass('on');
       }, time);
 
       setTimeout(function() {
         $('#' + divId).removeClass('on');
-      }, time+175);
+      }, time+timeOut);
     }
 
-    // queue the timeouts
-    var loop = ['1-1','1-2','1-3','1-4','1-5','2-5','3-5','4-5','5-5','5-4','5-3','5-2','4-2','3-2','2-2','2-3','2-4','3-4','4-4','4-3','3-3'];
 
-    for (var i=0; i<21; i++) {
-      loopTimeout(loop[i],i*100);
+    // queue the sweeps
+    var sweep = [
+      ['1-1','1-2','1-3','1-4','1-5'],
+      ['2-1','2-2','2-3','2-4','2-5'],
+      ['3-1','3-2','3-3','3-4','3-5'],
+      ['4-1','4-2','4-3','4-4','4-5'],
+      ['5-1','5-2','5-3','5-4','5-5'],
+      ['1-1','2-1','3-1','4-1','5-1'],
+      ['1-2','2-2','3-2','4-2','5-2'],
+      ['1-3','2-3','3-3','4-3','5-3'],
+      ['1-4','2-4','3-4','4-4','5-4'],
+      ['1-5','2-5','3-5','4-5','5-5']
+    ];
+
+    for (var i=0, w=0, sweepLength = sweep.length; i<sweepLength; i++) {
+      w++;
+      if (i==5) { w+=2; };
+      for (var ii=0, innerLength = sweep[i].length; ii<innerLength; ii++) {
+        loopTimeout(sweep[i][ii], w*70, 110);
+      }
     }
 
-    // queue the new-game
+    // delay the loop
     setTimeout(function() {
-      Game.newGame();
 
-      // reset number of moves
-      numMoves.text('0');
-    }, 2100);
+      // queue the loop
+      var loop = ['1-1','1-2','1-3','1-4','1-5','2-5','3-5','4-5','5-5','5-4','5-3','5-2','5-1','4-1','3-1','2-1','2-2','2-3','2-4','3-4','4-4','4-3','4-2','3-2','3-3'];
+
+      for (var i=0, loopLength = loop.length; i<loopLength; i++) {
+        loopTimeout(loop[i],i*50, 175);
+      }
+
+      // queue the new-game
+      setTimeout(function() {
+        Game.newGame();
+
+        // reset number of moves
+        numMoves.text('0');
+      }, 1400);
+
+    }, 1000);
   }
 
   Game.randGame = function() {
@@ -147,6 +175,8 @@
       Game.toggle(this);
     });
   }
+
+  // Public namespacing:
 
   LightsOut.createBoard = function() {
     Game.createBoard();
