@@ -82,7 +82,7 @@
       w++;
       if (i==5) { w+=2; };
       for (var ii=0, innerLength = sweep[i].length; ii<innerLength; ii++) {
-        loopTimeout(sweep[i][ii], w*70, 110);
+        loopTimeout(sweep[i][ii], w*75, 110);
       }
     }
 
