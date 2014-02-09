@@ -17,9 +17,11 @@ body {
 
 #new-game {
   float: left;
+  cursor: pointer;
 }
 #num-moves {
   float: right;
+  cursor: default;
 }
 
 #game-container {
@@ -36,7 +38,7 @@ body {
   -webkit-box-shadow: inset 0 0 20px #fff;
   -moz-box-shadow: inset 0 0 20px #fff;
   box-shadow: inset 0 0 20px #fff;
-
+  cursor: pointer;
 }
 
 .on {
